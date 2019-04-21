@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // window.addEventListener('beforeunload', function (e) {
 //     e.preventDefault(); // AIzaSyDQF0csW6tmQuLs5mCsvxBUbNyiwNprtJ8
@@ -115,8 +115,7 @@ function switchMode() {
     }
 };
 
-
-
+//================================================
 switcher.addEventListener('change', ()=>{
     switchMode();
 });
@@ -161,7 +160,7 @@ switcher.addEventListener('change', ()=>{
       
 //   });
 
-
+//=======================================================================================
 function start(){
     
     gapi.client.init({
@@ -197,19 +196,40 @@ function start(){
                     card.querySelector('.videos__item-views').style.color = '#fff';             
                 }
             });
-            sliceTitle();
+            sliceTitle('.videos__item-descr',100);
             bindModal(document.querySelectorAll('.videos__item'));
         }).catch(e =>{
             console.log(e)
         });
     });
 }
+//===================================
 
+function search(target){
+    gapi.client.init({
+        'apiKey': "AIzaSyDQF0csW6tmQuLs5mCsvxBUbNyiwNprtJ8",
+        'discoveryDocs': ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"],
+    }).then(function(){
+        return gapi.client.search.list({
+            'maxResult': '10',
+            'part': 'snippet',
+            'q': `${target}`,
+            'type': ''
+        });
+    }).then(function(tesponse){
+        console.log(response.result);
+    });
+
+}
+
+
+//====================================
 more.addEventListener('click', ()=>{
     more.remove();
     gapi.load('client', start);
 });
-
+//===========================================
+//===========================================
 function sliceTitle(selector, size){    
     document.querySelectorAll(selector).forEach(item =>{
         item.textContent.trim();        
